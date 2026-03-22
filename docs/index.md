@@ -58,7 +58,7 @@ OpenMRF is a modular and vendor-neutral framework for Magnetic Resonance Fingerp
 ## System Requirements
 - **MATLAB** tested with R2024b and R2025a on Win11 and Ubuntu 22.04. 
 
-# MRF IP Notice
+## MRF IP Notice
 
 Magnetic Resonance Fingerprinting (MRF) technology implemented in parts of this repository is protected intellectual property owned by **Case Western Reserve University (CWRU)**. The underlying methods and related technology are subject to patent protection.
 
