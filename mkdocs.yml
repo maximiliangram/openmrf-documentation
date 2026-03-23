@@ -65,6 +65,7 @@ extra:
     - icon: fontawesome/regular/envelope  
       name: Email Maximilian Gram and Tom Griesler
       link: mailto:maximilian.gram@uni-wuerzburg.de,tomgr@med.umich.edu
+  custom_domain: openmrf.org
 
 extra_css: 
   - assets/extra.css
