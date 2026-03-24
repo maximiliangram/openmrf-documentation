@@ -7,21 +7,41 @@ hide:
 
 The following steps briefly outline how to set up OpenMRF, compile a basic sequence, and reconstruct parametric maps from the acquired data.
 
-## 1. Fork and clone the repository. 
-Go to <https://github.com/OpenMRF/core-matlab> and fork the repository. Then, open a terminal, navigate to the location where you want your code to live, and run 
-```bash
-git clone <link-to-your-forked-repo>
+## 0. Recommended directory setup
+
+Before cloning the main OpenMRF repository, we recommend creating a top-level folder called `OpenMRF` and keeping the main framework code separate from your individual projects. Here's a suggested example file tree: 
+
+```text
+OpenMRF/
+|-- openmrf-core-matlab/
+|---Pulseq_Workspace/
+|-- project_1/
+`-- project_2/
 ```
+
+!!! info
+    You don't need to create the `openmrf-core-matlab` and `Pulseq_Workspace` subfolders manually - just follow the steps below. 
+
+## 1. Clone the repository. 
+Go to <https://github.com/OpenMRF/core-matlab>. We recommend you fork the repository - this will allow you to make and keep track of changes while also staying up to date with our updates. Then, open a terminal, navigate to the location where you want your code to live (if you follow the above recommendation, this would be the `OpenMRF` folder), and run 
+=== "Original repo"
+    ```bash
+    git clone <git@github.com:OpenMRF/openmrf-core-matlab.git>
+    ```
+=== "Forked repo"
+    ```bash
+    git clone <link-to-your-forked-repo>
+    ```
 
 ## 2. Add/confirm system specifications. 
 Navigate to `user_specifications/system_definitions` and check whether there
 exists a `.csv` file with your scanner’s system specifications. If it does, still open it and double check that the specifications listed are accurate. If it doesn’t, create a file for your scanner using one of the existing files as a template, and save it in the same location using the same naming convention.
 
 !!! warning "Warning"
-    Please be sure to double check your system specifications. Running Pulseq sequences that are compiled for a different gradient system can damage your scanner. 
+    Please be sure to double check your system specifications. Running Pulseq sequences that are compiled for a different gradient system can potentially damage your scanner. 
 
 <a id='asc-info'></a>
-If you have a `.asc` file for your scanner, add it under `user_specifications/system_definitions/asc_files`. Make sure the name matches the `ascfile` field in the corresponding scanner's `.csv` file. 
+If you have a `.asc` file for your scanner, add it under `user_specifications/system_definitions/asc_files`. Make sure the name matches the `ascfile` field in the corresponding scanner's `.csv` file. This file is needed for PNS simulations. 
 
 !!! info "`.asc` files"
     You don't need an `.asc` file to compile sequences. However, if your sequence happens to result in too high PNS, your sequence might not run on the scanner. 
@@ -36,7 +56,7 @@ The first time you run this script, this will create multiple pop-up windows pro
 
 - Username: Used to sign sequences you create. Can be a combination of your first and last name, for example. Will show up in the filename of all sequences you create. 
 - Lab: Will be stored in the backup information for all sequences you create. If your lab isn’t listed, select “Other” and enter your affiliation manually. 
-- Path to backup data: This is where all your backup data will be stored. Every time you write a sequence, a subfolder will be created here containing the .seq file needed to run the sequence on the scanner, as well as backup information necessary for reconstruction. 
+- Path to backup data: This is where all your backup data will be stored. Every time you write a sequence, a subfolder will be created here containing the .seq file needed to run the sequence on the scanner, as well as backup information necessary for reconstruction. If you want all OpenMRF related code and files to live in the same location, follow the recommendation from step 0 and choose the top-level `OpenMRF` directory. 
 - Default MRI scanner: the hardware limitations of this scanner will be used per default, unless you specify a different scanner in your code. 
 !!! info "Scanner selection"
     Every time you compile a sequence, the currently selected scanner specifications will be printed to the terminal. If the variable `pulseq_scanner` is not specified before `pulseq_init` in your sequence creation script, your default scanner will be automatically selected. More information [here](wiki/scanner.md).
@@ -60,7 +80,7 @@ pns_orientation = 'coronal';
 
 ```
 !!! info "PNS Simulation"
-    Even when the simulated PNS is under 100%, your sequence might not run on the scanner. Based on our experience we recommend staying under 85%. PNS can be reduced by adjusting the gradient slew rate. More information [here](troubleshoot.md#stimulation-limit-exceeded). 
+    Even when the simulated PNS is under 100%, your sequence might not run on the scanner. Based on our experience we recommend staying under 85%. PNS can be reduced by adjusting the gradient slew rates. More information [here](troubleshoot.md#stimulation-limit-exceeded). 
 - `flag_sound`: when set to 1, the sound resulting from gradient vibrations when running your sequence will be simulated and played by your default speaker. 
 - `flag_mrf`: when set to 1, an MRF dictionary is created based on your sequence, allowing you to confirm that your sequence creates your intended signal evolutions. 
 
@@ -77,4 +97,4 @@ For more information on how to run `.seq` files on your scanner, see <https://pu
 In Matlab, navigate to `main_sequences/fingerprinting` and open `reco_mrf.m`. Change the variables `study_path` and `study_name_mrf` to point to your acquired data. For now, we are not correcting for trajectory imperfections, so delete or comment the line defining `study_name_traj` - in this case, the nominal trajectory will be used for reconstruction. After having updated the paths, run the file. Once the reconstruction is complete, a figure showing the final parametric maps should appear. 
 
 ## 8. Your feedback matters! 
-Please help us improve OpenMRF. If you encounter any bugs, issues, or limitations - send us an [email](mailto:maximilian.gram@uni-wuerzburg.de,tomgr@umich.edu) or create an issue on the [github page](https://github.com/HarmonizedMRI/OpenMRF/issues)! 
+Please help us improve OpenMRF. If you encounter any bugs, issues, or limitations - send us an [email](mailto:maximilian.gram@uni-wuerzburg.de,tomgr@umich.edu) or create an issue on the [github page](https://github.com/OpenMRF/openmrf-core-matlab/issues)! 
