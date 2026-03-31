@@ -54,7 +54,7 @@ The first time you run this script, this will create multiple pop-up windows pro
 - Path to backup data: This is where all your backup data will be stored. Every time you write a sequence, a subfolder will be created containing the .seq file needed to run the sequence on the scanner, as well as backup information necessary for reconstruction. If you want all OpenMRF related code and files to live in the same location, follow the recommendation from step 0 and choose the top-level `OpenMRF` directory. 
 - Default MRI scanner: the hardware limitations of this scanner will be used per default, unless you specify a different scanner in your code. 
 !!! info "Scanner selection"
-    Every time you compile a sequence, the currently selected scanner specifications will be printed to the terminal. If the variable `pulseq_scanner` is not specified before `pulseq_init` in your sequence creation script, your default scanner will be automatically selected. More information [here](wiki/scanner.md).
+    Every time you compile a sequence, the currently selected scanner specifications will be printed to the terminal. If the variable `pulseq_scanner` is not specified before `pulseq_init` in your sequence creation script, your default scanner will be automatically selected.
 
 ## 4. Take a look around! 
 OpenMRF is a comprehensive framework with many different parts to it. For getting started, we strongly recommend taking a closer look at all the different examples in the `main_sequences` folder, and especially at the example MRF sequences in `main_sequences/fingerprinting`. In every subfolder, you will find code to compile the respective sequence (usually starts with `pulseq_....m`) as well as the corresponding code for reconstruction of the acquired raw data (usually starts with `reco_....m`). 
@@ -95,7 +95,8 @@ pns_orientation = 'all';
 ```
 to show PNS in all major slice orientations. 
 !!! info "PNS Simulation"
-    Even when the simulated PNS is under 100%, your sequence might not run on the scanner. Based on our experience we recommend staying under 85%. PNS can be reduced by adjusting the gradient slew rates. More information [here](troubleshoot.md#stimulation-limit-exceeded). 
+    Even when the simulated PNS is under 100%, your sequence might not run on the scanner. Based on our experience we recommend staying under 85%. PNS can be reduced by adjusting the gradient slew rates. 
+    <!-- More information [here](troubleshoot.md#stimulation-limit-exceeded).  -->
 - `flag_sound`: when set to 1, the sound resulting from gradient vibrations when running your sequence will be simulated and played by your default speaker. 
 - `flag_mrf`: when set to 1, an MRF dictionary is created based on your sequence, allowing you to confirm that your sequence creates your intended signal evolutions. 
 
